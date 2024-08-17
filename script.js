@@ -18,29 +18,29 @@ let winComb = [
     [6, 7, 8],
 ];
 
-const enableBtn = () =>{
+const enableBtn = () => {
     for (let tile of tiles) {
         tile.disabled = false;
         tile.innerText = "";
     }
 };
 
-const disableBtn = () =>{
+const disableBtn = () => {
     for (let tile of tiles) {
         tile.disabled = true;
     }
 };
 
-tiles.forEach((tile) =>{
-    tile.addEventListener("click", () =>{
+tiles.forEach((tile) => {
+    tile.addEventListener("click", () => {
         if (turnX) {
             tile.innerText = "X";
             turnX = false;
-            
+
         } else {
             tile.innerText = "O";
             turnX = true;
-            
+
         }
         tile.disabled = true;
         count++;
@@ -49,7 +49,7 @@ tiles.forEach((tile) =>{
             gameDraw();
         }
     });
-    
+
 });
 
 const checkWinner = () => {
@@ -58,31 +58,35 @@ const checkWinner = () => {
         let pos2Val = tiles[combo[1]].innerText;
         let pos3Val = tiles[combo[2]].innerText;
         if (pos1Val != "" && pos2Val != "" && pos3Val != "") {
-            if (pos1Val === pos2Val && pos1Val === pos3Val){
+            if (pos1Val === pos2Val && pos1Val === pos3Val) {
                 showWinner(pos1Val);
             }
-           
-        } 
+
+        }
     }
 };
 
-const gameDraw = () =>{
-    msg.innerText = `Game is a Draw`;
-    winContainer.classList.remove("hide");
-    disableBtn();
+const gameDraw = () => {
+    for (let tile of tiles) {
+        if (tile.innerText != "") {
+            msg.innerText = `Game is a Draw`;
+            winContainer.classList.remove("hide");
+            disableBtn();
+        }
+    }
 }
 
-const showWinner = (winner) =>{
+const showWinner = (winner) => {
     msg.innerText = `Congratulation Winner is ${winner}`;
     winContainer.classList.remove("hide");
     disableBtn();
 }
 
-const  resetButton = () =>{
+const resetButton = () => {
     turnX = true;
     enableBtn();
     winContainer.classList.add("hide");
 };
 
-reset.addEventListener("click",resetButton);
-newGame.addEventListener("click",resetButton);
+reset.addEventListener("click", resetButton);
+newGame.addEventListener("click", resetButton);
